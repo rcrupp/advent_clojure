@@ -1,6 +1,8 @@
 (ns rcrupp.day04
   (:require [clojure.string :as str]))
 
+(defn get-lines [fname]
+  (str/split-lines (slurp fname)))
 
 (defn parse [s]
   (let [n (str/split s #",")
@@ -18,24 +20,22 @@
     1
     0))
 
-(defn contains-overlap [pair]
-  (let [n (str/split pair #",")
-        p1 (str/split (first n) #"-")
-        p2 (str/split (second n) #"-")
-        l1 (parse-long (first p1))
-        h1 (parse-long (second p1))
-        l2 (parse-long (first p2))
-        h2 (parse-long (second p2))]
-    (if (and (<= l1 h2) (>= h1 l2))
-      1
-      0)))
+(defn contains-overlap [m]
+  (if (and (<= (m :l1) (m :h2)) (>= (m :h1) (m :l2)))
+    1
+    0))
+
+(def xf-subset (comp (map parse) (map contains-subset)))
+
+(def xf-overlap (comp (map parse) (map contains-overlap)))
+
 
 (defn part1 []
-  (reduce + (map contains-subset (map parse (str/split-lines (slurp "input4.txt"))))))
+  (transduce xf-subset + (get-lines "input4.txt")))
 
 
 (defn part2 []
-  (reduce + (map contains-overlap (str/split-lines (slurp "input4.txt")))))
+  (transduce xf-overlap + (get-lines "input4.txt")))
 
 
 (comment
@@ -46,6 +46,8 @@
 
   (contains-overlap "1-5,3-4")
 
+  (part1)
+  
   (part2)
 
   )
