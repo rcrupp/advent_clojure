@@ -37,4 +37,7 @@
 
   (take 1 (partition 3 (str/split-lines (slurp "input3.txt"))))
 
-  (part2))
+  (part2)
+   
+  
+  )
