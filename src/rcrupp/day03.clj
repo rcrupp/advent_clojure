@@ -29,15 +29,3 @@
 
 (defn part2 []
   (reduce + (map to-badge-priority (partition 3 (str/split-lines (slurp "input3.txt"))))))
-
-
-(comment
-
-  (part1)
-
-  (take 1 (partition 3 (str/split-lines (slurp "input3.txt"))))
-
-  (part2)
-   
-  
-  )
