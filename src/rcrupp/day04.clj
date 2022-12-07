@@ -36,18 +36,3 @@
 
 (defn part2 []
   (transduce xf-overlap + (get-lines "input4.txt")))
-
-
-(comment
-
-  (take 3 (map #(str/split % #",") (str/split-lines (slurp "input4.txt"))))
-
-  (contains-subset "4-5,5-7")
-
-  (contains-overlap "1-5,3-4")
-
-  (part1)
-  
-  (part2)
-
-  )
